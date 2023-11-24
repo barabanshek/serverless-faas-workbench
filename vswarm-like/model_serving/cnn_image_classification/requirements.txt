@@ -12,3 +12,5 @@ grpcio_reflection
 tensorflow
 keras
 numpy
+keras_applications
+Pillow

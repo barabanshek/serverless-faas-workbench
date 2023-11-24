@@ -3,14 +3,23 @@ Reference : https://github.com/rcmalli/keras-squeezenet
 SqueezeNet v1.1 Implementation using Keras Functional Framework 2.0
 
 """
-from tensorflow.python.keras._impl.keras.applications.imagenet_utils import _obtain_input_shape
-from tensorflow.python.keras._impl.keras import backend as K
-from tensorflow.python.keras._impl.keras.layers import Input, Convolution2D, MaxPooling2D, Activation, concatenate, Dropout
-from tensorflow.python.keras._impl.keras.layers import GlobalAveragePooling2D, GlobalMaxPooling2D
-from tensorflow.python.keras._impl.keras.models import Model
-from tensorflow.python.keras._impl.keras.engine.topology import get_source_inputs
-from tensorflow.python.keras._impl.keras.utils import get_file
-from tensorflow.python.keras._impl.keras.utils import layer_utils
+# from tensorflow.python.keras._impl.keras.applications.imagenet_utils import _obtain_input_shape
+# from tensorflow.python.keras._impl.keras import backend as K
+# from tensorflow.python.keras._impl.keras.layers import Input, Convolution2D, MaxPooling2D, Activation, concatenate, Dropout
+# from tensorflow.python.keras._impl.keras.layers import GlobalAveragePooling2D, GlobalMaxPooling2D
+# from tensorflow.python.keras._impl.keras.models import Model
+# from tensorflow.python.keras._impl.keras.engine.topology import get_source_inputs
+# from tensorflow.python.keras._impl.keras.utils import get_file
+# from tensorflow.python.keras._impl.keras.utils import layer_utils
+
+from keras_applications.imagenet_utils import _obtain_input_shape
+from tensorflow.python.keras import backend as K
+from tensorflow.python.keras.layers import Input, Convolution2D, MaxPooling2D, Activation, concatenate, Dropout
+from tensorflow.python.keras.layers import GlobalAveragePooling2D, GlobalMaxPooling2D
+from tensorflow.python.keras.models import Model
+from keras.utils.layer_utils import get_source_inputs
+from tensorflow.python.keras.utils.data_utils import get_file
+from tensorflow.python.keras.utils import layer_utils
 
 sq1x1 = "squeeze1x1"
 exp1x1 = "expand1x1"
@@ -123,7 +132,7 @@ def SqueezeNet(include_top=True, weights='imagenet',
     # load weights
     if weights == 'imagenet':
         if include_top:
-            weights_path = '/tmp/squeezenet_weights_tf_dim_ordering_tf_kernels.h5'
+            weights_path = 'squeezenet_weights_tf_dim_ordering_tf_kernels.h5'
         else:
             weights_path = get_file('squeezenet_weights_tf_dim_ordering_tf_kernels_notop.h5',
                                     WEIGHTS_PATH_NO_TOP,
