@@ -59,8 +59,21 @@ def video_processing(blob_name, file_path):
 class Greeter(fibonacci_pb2_grpc.GreeterServicer):
 
     def SayHello(self, request, context):
-        lat, _ = video_processing(f"output-{request.name}", "SampleVideo_1280x720_10mb.mp4")
-        msg = "fn: VideoProcess | img: %s, lat: %i | runtime: python" % (f"output-{request.name}", lat)
+        if request.name == "hd2":
+            video_filename = "SampleVideo_1280x720_2mb.mp4"
+        elif request.name == "hd10":
+            video_filename = "SampleVideo_1280x720_10mb.mp4"
+        elif request.name == "hd30":
+            video_filename = "SampleVideo_1280x720_30mb.mp4"
+        elif request.name == "lowres2":
+            video_filename = "SampleVideo_640x360_2mb.mp4"
+        elif request.name == "lowreshd10":
+            video_filename = "SampleVideo_640x360_10mb.mp4"
+        elif request.name == "lowres30":
+            video_filename = "SampleVideo_640x360_30mb.mp4"
+
+        lat, _ = video_processing(f"output-{request.name}", video_filename)
+        msg = "fn: VideoProcess | video: %s, lat: %i | runtime: python" % (f"{video_filename}", lat)
         return fibonacci_pb2.HelloReply(message=msg)
 
 def serve():
