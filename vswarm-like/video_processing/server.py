@@ -16,10 +16,6 @@ import fibonacci_pb2_grpc
 import os
 import sys
 
-import ctypes
-libc = ctypes.CDLL(None)
-syscall = libc.syscall
-
 print("python version: %s" % sys.version)
 print("Server has PID: %d" % os.getpid())
 GRPC_PORT_ADDRESS = os.getenv("GRPC_PORT")
@@ -64,8 +60,6 @@ class Greeter(fibonacci_pb2_grpc.GreeterServicer):
 
     def SayHello(self, request, context):
         lat, _ = video_processing(f"output-{request.name}", "SampleVideo_1280x720_10mb.mp4")
-
-        gid = syscall(104)
         msg = "fn: VideoProcess | img: %s, lat: %i | runtime: python" % (f"output-{request.name}", lat)
         return fibonacci_pb2.HelloReply(message=msg)
 

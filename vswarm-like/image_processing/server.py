@@ -16,10 +16,6 @@ import fibonacci_pb2_grpc
 import os
 import sys
 
-import ctypes
-libc = ctypes.CDLL(None)
-syscall = libc.syscall
-
 print("python version: %s" % sys.version)
 print("Server has PID: %d" % os.getpid())
 GRPC_PORT_ADDRESS = os.getenv("GRPC_PORT")
@@ -71,7 +67,6 @@ class Greeter(fibonacci_pb2_grpc.GreeterServicer):
 
         lat, _ = image_processing(f'{img_filename}', img_filename)
 
-        gid = syscall(104)
         msg = "fn: ImageProcess | img: %s, lat: %i | runtime: python" % (img_filename, lat)
         return fibonacci_pb2.HelloReply(message=msg)
 

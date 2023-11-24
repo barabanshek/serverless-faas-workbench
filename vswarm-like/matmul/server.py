@@ -14,10 +14,6 @@ import fibonacci_pb2_grpc
 import os
 import sys
 
-import ctypes
-libc = ctypes.CDLL(None)
-syscall = libc.syscall
-
 print("python version: %s" % sys.version)
 print("Server has PID: %d" % os.getpid())
 GRPC_PORT_ADDRESS = os.getenv("GRPC_PORT")
@@ -42,17 +38,13 @@ def matmul(N):
 
 class Greeter(fibonacci_pb2_grpc.GreeterServicer):
 
-    # def __init__(self):
-    
-
     def SayHello(self, request, context):
         try:
             dim = int(request.name)
         except:
             dim = 128
         lat = matmul(dim)
-        gid = syscall(104) 
-        msg = "fn: ImageProcess | dim: %i, lat: %i | runtime: python" % (dim,lat)
+        msg = "fn: MatMul | dim: %i, lat: %i | runtime: python" % (dim,lat)
         return fibonacci_pb2.HelloReply(message=msg)
 
 def serve():

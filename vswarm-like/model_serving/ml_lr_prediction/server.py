@@ -21,9 +21,6 @@ import re
 import os
 import sys
 
-import ctypes
-libc = ctypes.CDLL(None)
-syscall = libc.syscall
 
 print("python version: %s" % sys.version)
 print("Server has PID: %d" % os.getpid())
