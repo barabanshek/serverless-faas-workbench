@@ -24,7 +24,7 @@ parser.add_argument("-zipkin", "--zipkin", dest="url", default="http://0.0.0.0:9
 args = parser.parse_args()
 
 def video_processing(model_path, blob_name, file_path):
-    output_file_path = '/tmp/output-' + blob_name
+    output_file_path = '/tmp/' + blob_name
     video = cv2.VideoCapture(file_path)
     
     width = int(video.get(3))
@@ -59,11 +59,23 @@ def video_processing(model_path, blob_name, file_path):
 class Greeter(fibonacci_pb2_grpc.GreeterServicer):
 
     def SayHello(self, request, context):
-        video_path = "SampleVideo_1280x720_10mb.mp4"
         model_path = "haarcascade_frontalface_default.xml"
 
-        lat, _ = video_processing(model_path, "blob.avi", video_path)
-        msg = "fn: Model Serving LR | lat: %i | runtime: python" % (lat)
+        if request.name == "hd2":
+            video_path = "SampleVideo_1280x720_2mb.mp4"
+        elif request.name == "hd10":
+            video_path = "SampleVideo_1280x720_10mb.mp4"
+        elif request.name == "hd30":
+            video_path = "SampleVideo_1280x720_30mb.mp4"
+        elif request.name == "lowres2":
+            video_path = "SampleVideo_640x360_2mb.mp4"
+        elif request.name == "lowreshd10":
+            video_path = "SampleVideo_640x360_10mb.mp4"
+        elif request.name == "lowres30":
+            video_path = "SampleVideo_640x360_30mb.mp4"
+
+        lat, _ = video_processing(model_path, f"out-{request.name}.avi", video_path)
+        msg = "fn: Model Serving Video Face Detection | video: %s, lat: %i | runtime: python" % (video_path, lat)
         return fibonacci_pb2.HelloReply(message=msg)
 
 
