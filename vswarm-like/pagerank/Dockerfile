@@ -1,7 +1,7 @@
 #---------- PYTHON -----------#
 ## First stage (Builder):
 ## Install gRPC and all other dependencies
-FROM vhiveease/python-slim:latest as matMulPythonBuilder
+FROM vhiveease/python-slim:latest as pageRankPythonBuilder
 WORKDIR /py
 COPY requirements.txt ./
 RUN pip3 install --user -r requirements.txt
@@ -10,9 +10,9 @@ ADD https://raw.githubusercontent.com/vhive-serverless/vSwarm-proto/v0.3.0/proto
 ADD https://raw.githubusercontent.com/vhive-serverless/vSwarm-proto/v0.3.0/proto/fibonacci/fibonacci_pb2.py ./proto/fibonacci/
 
 # Second stage (Runner):
-FROM vhiveease/python-slim:latest as matMulPython
-COPY --from=matMulPythonBuilder /root/.local /root/.local
-COPY --from=matMulPythonBuilder /py /app
+FROM vhiveease/python-slim:latest as pageRankPython
+COPY --from=pageRankPythonBuilder /root/.local /root/.local
+COPY --from=pageRankPythonBuilder /py /app
 WORKDIR /app
 
 # ENV PATH=/root/.local/bin:$PATH
