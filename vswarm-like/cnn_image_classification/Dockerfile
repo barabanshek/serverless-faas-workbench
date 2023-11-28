@@ -17,6 +17,9 @@ COPY data ./
 FROM vhiveease/python-slim:latest as modelServingCNNPython
 COPY --from=modelServingCNNPythonBuilder /root/.local /root/.local
 COPY --from=modelServingCNNPythonBuilder /py /app
+
+COPY imagenet_class_index.json ./root/.keras/models/
+
 WORKDIR /app
 # ENV PATH=/root/.local/bin:$PATH
 ENTRYPOINT [ "python", "/app/server.py" ]
