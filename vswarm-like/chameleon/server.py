@@ -69,7 +69,7 @@ class Greeter(fibonacci_pb2_grpc.GreeterServicer):
             rows = fields[0]
             columns = fields[1]
         lat = chameleon(rows, columns)
-        msg = "fn: Chameleon | Rows: %i, Columns: %i, lat: %i | runtime: python" % (rows, columns, lat)
+        msg = "fn: Chameleon | Rows: %i, Columns: %i, lat: %f | runtime: python" % (rows, columns, lat)
         return fibonacci_pb2.HelloReply(message=msg)
 
 def serve():

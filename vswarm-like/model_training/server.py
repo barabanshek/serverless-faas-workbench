@@ -72,7 +72,7 @@ class Greeter(fibonacci_pb2_grpc.GreeterServicer):
         else:
             training_file = "reviews10mb.csv"
         lat = train(training_file)
-        msg = "fn: Model Training | train file: %s, lat: %i | runtime: python" % (training_file,lat)
+        msg = "fn: Model Training | train file: %s, lat: %f | runtime: python" % (training_file,lat)
         return fibonacci_pb2.HelloReply(message=msg)
 
 

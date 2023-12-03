@@ -39,7 +39,7 @@ class Greeter(fibonacci_pb2_grpc.GreeterServicer):
 
     def SayHello(self, request, context):
         lat = self.visualize()
-        msg = "fn: dna_visualization | lat: %i | runtime: python" % (lat)
+        msg = "fn: dna_visualization | lat: %f | runtime: python" % (lat)
         return fibonacci_pb2.HelloReply(message=msg)
 
 def serve():

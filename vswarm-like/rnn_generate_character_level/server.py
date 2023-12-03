@@ -56,7 +56,7 @@ class Greeter(fibonacci_pb2_grpc.GreeterServicer):
         input_chars = request.name
         lat, res = predict(model_path, params_path, input_chars)
 
-        msg = "fn: Model Serving RNN | input: %s, pred: %s, lat: %i | runtime: python" % (request.name, res[0], lat)
+        msg = "fn: Model Serving RNN | input: %s, pred: %s, lat: %f | runtime: python" % (request.name, res[0], lat)
         return fibonacci_pb2.HelloReply(message=msg)
 
 

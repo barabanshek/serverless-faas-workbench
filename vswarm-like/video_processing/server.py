@@ -77,7 +77,7 @@ class Greeter(fibonacci_pb2_grpc.GreeterServicer):
             video_filename = "SampleVideo_640x360_30mb.mp4"
 
         lat, _ = video_processing(f"output-{request.name}", video_filename)
-        msg = "fn: VideoProcess | video: %s, lat: %i | runtime: python" % (f"{video_filename}", lat)
+        msg = "fn: VideoProcess | video: %s, lat: %f | runtime: python" % (f"{video_filename}", lat)
         return fibonacci_pb2.HelloReply(message=msg)
 
 def serve():

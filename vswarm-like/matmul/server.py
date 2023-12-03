@@ -44,7 +44,7 @@ class Greeter(fibonacci_pb2_grpc.GreeterServicer):
         except:
             dim = 128
         lat = matmul(dim)
-        msg = "fn: MatMul | dim: %i, lat: %i | runtime: python" % (dim,lat)
+        msg = "fn: MatMul | dim: %i, lat: %f | runtime: python" % (dim,lat)
         return fibonacci_pb2.HelloReply(message=msg)
 
 def serve():

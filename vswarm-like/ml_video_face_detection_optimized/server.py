@@ -85,7 +85,7 @@ class Greeter(fibonacci_pb2_grpc.GreeterServicer):
             video_path = "SampleVideo_640x360_2mb.mp4"
 
         lat, _ = self.video_processing(f"out-{request.name}.avi", video_path)
-        msg = "fn: Model Serving Video Face Detection | video: %s, lat: %i | runtime: python" % (video_path, lat)
+        msg = "fn: Model Serving Video Face Detection | video: %s, lat: %f | runtime: python" % (video_path, lat)
         return fibonacci_pb2.HelloReply(message=msg)
 
 

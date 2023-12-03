@@ -76,7 +76,7 @@ class Greeter(fibonacci_pb2_grpc.GreeterServicer):
 
         lat, pred = self.predict(img_filename)
 
-        msg = "fn: ResNet Img Recog | img: %s, pred: %s, lat: %i | runtime: python" % (img_filename, pred, lat)
+        msg = "fn: ResNet Img Recog | img: %s, pred: %s, lat: %f | runtime: python" % (img_filename, pred, lat)
         return fibonacci_pb2.HelloReply(message=msg)
 
 def serve():

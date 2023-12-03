@@ -54,7 +54,7 @@ class Greeter(fibonacci_pb2_grpc.GreeterServicer):
     def SayHello(self, request, context):
         input_chars = request.name
         lat, res = self.predict(input_chars)
-        msg = "fn: Model Serving RNN | input: %s, pred: %s, lat: %i | runtime: python" % (request.name, res[0], lat)
+        msg = "fn: Model Serving RNN | input: %s, pred: %s, lat: %f | runtime: python" % (request.name, res[0], lat)
         return fibonacci_pb2.HelloReply(message=msg)
 
 

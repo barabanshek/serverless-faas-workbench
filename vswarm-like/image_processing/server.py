@@ -71,7 +71,7 @@ class Greeter(fibonacci_pb2_grpc.GreeterServicer):
 
         lat, _ = image_processing(f'{img_filename}', img_filename)
 
-        msg = "fn: ImageProcess | img: %s, lat: %i | runtime: python" % (img_filename, lat)
+        msg = "fn: ImageProcess | img: %s, lat: %f | runtime: python" % (img_filename, lat)
         return fibonacci_pb2.HelloReply(message=msg)
 
 def serve():

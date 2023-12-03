@@ -41,7 +41,7 @@ class Greeter(fibonacci_pb2_grpc.GreeterServicer):
         except:
             size = 50000
         lat, res = pagerank(size)
-        msg = "fn: PageRank | size: %i, res:%s, lat: %i | runtime: python" % (size, res, lat)
+        msg = "fn: PageRank | size: %i, res:%s, lat: %f | runtime: python" % (size, res, lat)
         return fibonacci_pb2.HelloReply(message=msg)
 
 def serve():

@@ -45,9 +45,6 @@ def predict(img_path):
 
 class Greeter(fibonacci_pb2_grpc.GreeterServicer):
 
-    # def __init__(self):
-    #     self.img_names = ["animal-dog.jpg", "image.jpg"]
-    #     self.img_count = 0
     def __init__(self):
         extension = "jpg"
         hd_resolution = "3840x"
@@ -57,15 +54,7 @@ class Greeter(fibonacci_pb2_grpc.GreeterServicer):
         self.low_images = [file for file in os.listdir(".") if file.endswith(f".{extension}") and (f"{low_resolution}" in file)]
         self.low_image_cnt = 0
     
-    # def SayHello(self, request, context):
-    #     img_path = self.img_names[self.img_count%len(self.img_names)]
-    #     lat, res = predict(img_path)
-    #     self.img_count += 1
-    #     msg = "fn: Model Serving CNN | input: %s, pred: %s, lat: %i | runtime: python" % (img_path, res, lat)
-    #     return fibonacci_pb2.HelloReply(message=msg)
-
     def SayHello(self, request, context):
-
         img_filename = ""
         if request.name == "record":
             img_filename = "image.jpg"
@@ -80,7 +69,7 @@ class Greeter(fibonacci_pb2_grpc.GreeterServicer):
 
         lat, pred = predict(img_filename)
 
-        msg = "fn: Model Serving CNN | img: %s, pred: %s, lat: %i | runtime: python" % (img_filename, pred, lat)
+        msg = "fn: Model Serving CNN | img: %s, pred: %s, lat: %f | runtime: python" % (img_filename, pred, lat)
         return fibonacci_pb2.HelloReply(message=msg)
 
 def serve():
