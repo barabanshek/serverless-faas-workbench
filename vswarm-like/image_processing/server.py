@@ -58,7 +58,11 @@ class Greeter(fibonacci_pb2_grpc.GreeterServicer):
     def SayHello(self, request, context):
 
         img_filename = ""
-        if request.name == "hd":
+        if request.name == "record":
+            img_filename = "image.jpg"
+        elif request.name == "replay":
+            img_filename= "animal-dog.jpg"
+        elif request.name == "hd":
             img_filename = self.hd_images[self.hd_image_cnt]
             self.hd_image_cnt = (self.hd_image_cnt + 1) % len(self.hd_images)
         else:

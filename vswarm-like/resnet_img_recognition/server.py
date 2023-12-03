@@ -66,8 +66,13 @@ class Greeter(fibonacci_pb2_grpc.GreeterServicer):
         return latency, res
 
     def SayHello(self, request, context):
-        self.cnt = (self.cnt + 1)%len(self.imgs)
-        img_filename = self.imgs[self.cnt]
+        if request.name == "record":
+            img_filename = "image.jpg"
+        elif request.name == "replay":
+            img_filename= "animal-dog.jpg"
+        else:
+            self.cnt = (self.cnt + 1)%len(self.imgs)
+            img_filename = self.imgs[self.cnt]
 
         lat, pred = self.predict(img_filename)
 
