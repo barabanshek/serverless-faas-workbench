@@ -45,7 +45,7 @@ class Greeter(fibonacci_pb2_grpc.GreeterServicer):
             fasta_file = "bacillus_subtilis.fasta"
         elif request.name == "replay":
             fasta_file = "genomic-seq.fasta"
-        if request.name == "small":
+        elif request.name == "small":
             fasta_file = "f002.fasta"
         elif request.name == "medium":
             fasta_file = "spaced_fasta.fasta"
