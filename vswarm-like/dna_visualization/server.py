@@ -28,18 +28,37 @@ args = parser.parse_args()
 class Greeter(fibonacci_pb2_grpc.GreeterServicer):
 
     def __init__(self):
-        self.data = open("bacillus_subtilis.fasta", "r").read()
+        self.fasta_files = ["bacillus_subtilis.fasta", "genomic-seq.fasta", "spaced_fasta.fasta", "f002.fasta"] 
+        self.cnt = 0
 
-    def visualize(self):
+    def visualize(self, fasta_file):
         start = time()
-        result = transform(self.data)
+        data = open(fasta_file, "r").read()
+        result = transform(data)
         latency = time() - start
 
         return latency
 
     def SayHello(self, request, context):
-        lat = self.visualize()
-        msg = "fn: dna_visualization | lat: %f | runtime: python" % (lat)
+        fasta_file = ""
+        if request.name == "record":
+            fasta_file = "bacillus_subtilis.fasta"
+        elif request.name == "replay":
+            fasta_file = "genomic-seq.fasta"
+        if request.name == "small":
+            fasta_file = "f002.fasta"
+        elif request.name == "medium":
+            fasta_file = "spaced_fasta.fasta"
+        elif request.name == "big":
+            fasta_file = "genomic-seq.fasta"
+        elif request.name == "verybig":
+            fasta_file = "bacillus_subtilis.fasta"
+        else:
+            fasta_file = self.fasta_files[self.cnt%len(self.fasta_files)]
+            self.cnt += 1
+
+        lat = self.visualize(fasta_file)
+        msg = "fn: dna_visualization | fasta_file: %s, lat: %f | runtime: python" % (fasta_file, lat)
         return fibonacci_pb2.HelloReply(message=msg)
 
 def serve():
