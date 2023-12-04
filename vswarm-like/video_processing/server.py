@@ -58,11 +58,18 @@ def video_processing(blob_name, file_path):
 
 class Greeter(fibonacci_pb2_grpc.GreeterServicer):
 
+    def __init__(self):
+        self.cnt = 0
+        self.vids = ["SampleVideo_1280x720_30mb.mp4", "SampleVideo_640x360_30mb.mp4", 
+                    "SampleVideo_1280x720_10mb.mp4", "SampleVideo_640x360_10mb.mp4", 
+                    "SampleVideo_1280x720_2mb.mp4", "SampleVideo_640x360_2mb.mp4"]
+        
+
     def SayHello(self, request, context):
         if request.name == "record":
-            video_path = "SampleVideo_1280x720_30mb.mp4"
-        elif request.name == "replace":
-            video_path = "SampleVideo_640x360_30mb.mp4"
+            video_filename = "SampleVideo_1280x720_30mb.mp4"
+        elif request.name == "replay":
+            video_filename = "SampleVideo_640x360_30mb.mp4"
         elif request.name == "hd2":
             video_filename = "SampleVideo_1280x720_2mb.mp4"
         elif request.name == "hd10":
@@ -75,8 +82,12 @@ class Greeter(fibonacci_pb2_grpc.GreeterServicer):
             video_filename = "SampleVideo_640x360_10mb.mp4"
         elif request.name == "lowres30":
             video_filename = "SampleVideo_640x360_30mb.mp4"
+        else:
+            video_filename = self.vids[self.cnt%len(self.vids)]
+            self.cnt += 1
 
-        lat, _ = video_processing(f"output-{request.name}", video_filename)
+
+        lat, _ = video_processing(f"output-{request.name}-0", video_filename)
         msg = "fn: VideoProcess | video: %s, lat: %f | runtime: python" % (f"{video_filename}", lat)
         return fibonacci_pb2.HelloReply(message=msg)
 
