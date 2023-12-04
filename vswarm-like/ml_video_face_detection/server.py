@@ -58,6 +58,12 @@ def video_processing(model_path, blob_name, file_path):
 
 class Greeter(fibonacci_pb2_grpc.GreeterServicer):
 
+    def __init__(self):
+        self.cnt = 0
+        self.vids = ["SampleVideo_1280x720_30mb.mp4", "SampleVideo_640x360_30mb.mp4", 
+                    "SampleVideo_1280x720_10mb.mp4", "SampleVideo_640x360_10mb.mp4", 
+                    "SampleVideo_1280x720_2mb.mp4", "SampleVideo_640x360_2mb.mp4"]
+                    
     def SayHello(self, request, context):
         model_path = "haarcascade_frontalface_default.xml"
 
@@ -78,9 +84,10 @@ class Greeter(fibonacci_pb2_grpc.GreeterServicer):
         elif request.name == "lowres30":
             video_path = "SampleVideo_640x360_30mb.mp4"
         else:
-            video_path = "SampleVideo_640x360_2mb.mp4"
+            video_path = self.vids[self.cnt%len(self.vids)]
+            self.cnt += 1
             
-        lat, _ = video_processing(model_path, f"out-{request.name}.avi", video_path)
+        lat, _ = video_processing(model_path, f"out-{request.name}-0.avi", video_path)
         msg = "fn: Model Serving Video Face Detection | video: %s, lat: %f | runtime: python" % (video_path, lat)
         return fibonacci_pb2.HelloReply(message=msg)
 
