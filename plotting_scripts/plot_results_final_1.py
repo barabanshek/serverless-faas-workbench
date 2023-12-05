@@ -2,7 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 # Load the data from the CSV file
-file_path = 'Downloads/raw_data-REAP.csv'  # Replace with your file path
+file_path = 'raw_data_reap.csv'  # Replace with your file path
 data = pd.read_csv(file_path, header=2)
 
 text_size_ultrabig = 26
@@ -25,7 +25,7 @@ benchark_names = {
     'bfs': 'bfs',
     'dna-visualization': 'dna-\nvisualization',
     'dna-visualization-1': 'dna-\nvisualization-1',
-    # 'resnet-img-recognition': 'resnet-img\n-recognition',
+    'resnet-img-recognition': 'resnet-img\n-recognition',
     'pagerank': 'pagerank',
     'model-training': 'model-training-\n2MB',
     'model-training-1': 'model-training-\n10MB'
@@ -73,9 +73,9 @@ for i, app in enumerate(data['Application']):
 
     # Accelerated times
     accelerated_total = data.loc[i, 'AcceleratedTotal_us']
-    ax.bar(i + width/1.8, data.loc[i, 'AcceleratedVMLoad_us'], width=width, color=accelerated_colors[0], label='Our VM load with prefetching' if i == 0 else "", zorder=3, hatch='o')
+    ax.bar(i + width/1.8, data.loc[i, 'AcceleratedVMLoad_us'], width=width, color=accelerated_colors[0], label='Sabre VM load with prefetching' if i == 0 else "", zorder=3, hatch='//')
     ax.bar(i + width/1.8, data.loc[i, 'AcceleratedColdStart_us'], width=width, color=accelerated_colors[1], bottom=data.loc[i, 'AcceleratedVMLoad_us'], 
-            label='Our function invocation' if i == 0 else "", zorder=3, hatch='o')
+            label='Sabre function invocation' if i == 0 else "", zorder=3, hatch='//')
 
     # Adding compression ratio annotations
     compression_ratio = data.loc[i, 'CompressionRatio']
@@ -85,7 +85,7 @@ for i, app in enumerate(data['Application']):
 
 b_names = [benchark_names[b] for b in data['Application']]
 ax.set_xticks(range(len(data['Application'])), b_names, rotation=45, fontsize=text_size_big)
-ax.set_ylabel('End-to-end cold start time, ms', fontsize=text_size_ultrabig)
+ax.set_ylabel('End-to-end cold start time (ms)', fontsize=text_size_ultrabig)
 ax.set_yticks(range(0, 6000, 1000))
 for label in ax.get_yticklabels():
     label.set_fontsize(text_size_ultrabig)

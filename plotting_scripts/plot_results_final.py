@@ -2,7 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 # Load the data from the CSV file
-file_path = 'Downloads/raw_data-vanilla.csv'  # Replace with your file path
+file_path = 'raw_data_vanilla.csv'  # Replace with your file path
 data = pd.read_csv(file_path, header=2)
 
 text_size_ultrabig = 26
